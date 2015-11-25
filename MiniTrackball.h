@@ -76,6 +76,12 @@ class MTB
   
   void SetDefault(void);
   
+  void GetTrackData(uint8_t data[]);
+  
+  void test_SetLedMode(void);
+  void test_WriteReg(void);
+  void test_SetDefault(void);
+  
   private:
   
 };

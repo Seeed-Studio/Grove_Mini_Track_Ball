@@ -4,8 +4,8 @@
  *
  * Copyright (c) 2015 seeed technology inc.
  * Website    : www.seeed.cc
- * Author     : Fuhua.Chen
- * Modified Time: June 2015
+ * Author     : Fuhua.Chen & Ruibin Wu
+ * Modified Time: Nov 2015
  * 
  * The MIT License (MIT)
  *
@@ -136,4 +136,104 @@ void MTB::SetDefault(void)
   unsigned char Zero[]={0,0,0,0};
   WriteNByte(CONFIG_REG_VALID , Zero , 4);
   delay(100);
+}
+
+/**************************************************************** 
+ * Function Name: GetTrackData
+ * Description:  Get the track data on removable, include up, down, left, right, click.
+ * Parameters: array data[], the number of elements is greater than or equal to 5 which used to store data.
+ * Return: none
+****************************************************************/ 
+void MTB::GetTrackData(uint8_t data[])
+{
+    data[0] = ReadByte(MOTION_REG_UP);
+    data[1] = ReadByte(MOTION_REG_DOWN);
+    data[2] = ReadByte(MOTION_REG_LEFT);
+    data[3] = ReadByte(MOTION_REG_RIGHT);
+    data[4] = ReadByte(MOTION_REG_CONFIRM);
+}
+
+/**************************************************************** 
+ * Function Name: test_SetLedMode
+ * Description:  Use for test SetLedMode function.
+ * Parameters: none
+ * Return: none
+****************************************************************/ 
+void MTB::test_SetLedMode(void)
+{
+	for(int i=0;i<LED_MODE_NUM;i++)
+	{
+      SetLedMode((enum LED_MODE)i);
+	  delay(5000);
+	}
+}
+
+/**************************************************************** 
+ * Function Name: test_WriteReg
+ * Description:  Use for test WriteByte function.
+ * Parameters: none
+ * Return: none
+****************************************************************/ 
+void MTB::test_WriteReg(void)
+{ 
+  unsigned char tmp[8]={0};
+  tmp[0] = 0X4A;
+  WriteByte(CONFIG_REG_I2C_ADDR ,tmp[0]);
+  delay(100);
+  tmp[0] = 0X64;
+  tmp[1] = 0X00;
+  WriteByte(CONFIG_REG_I2C_SPEED ,tmp[0]);
+  WriteByte(CONFIG_REG_I2C_SPEED+1 ,tmp[1]);
+  delay(100);
+  tmp[0] = 10;
+  WriteByte(CONFIG_REG_LED_MODE ,tmp[0]);
+  delay(100);
+  tmp[0] = 0xc8;
+  tmp[1] = 0x00;
+  WriteByte(CONFIG_REG_LED_FLASH_TIME ,tmp[0]);
+  WriteByte(CONFIG_REG_LED_FLASH_TIME+1 ,tmp[1]);
+  delay(100);
+  tmp[0] = 0XEA;
+  tmp[1] = 0X14;
+  WriteByte(CONFIG_REG_DATA_CLEAR_TIME ,tmp[0]);
+  WriteByte(CONFIG_REG_DATA_CLEAR_TIME+1 ,tmp[1]);
+  delay(100);
+  tmp[0] = 0X22;
+  tmp[1] = 0X05;
+  WriteByte(CONFIG_REG_DATA_READ_TIME ,tmp[0]);
+  WriteByte(CONFIG_REG_DATA_READ_TIME+1 ,tmp[1]);
+  delay(1000);
+  Serial.println("Setted Value are over here");
+  Serial.print("valid:0x");Serial.print(ReadByte(CONFIG_REG_VALID+3),HEX);Serial.print(ReadByte(CONFIG_REG_VALID+2),HEX);Serial.print(ReadByte(CONFIG_REG_VALID+1),HEX);Serial.println(ReadByte(CONFIG_REG_VALID+0),HEX);
+  Serial.print("I2C_ADDR:0x");Serial.println(ReadByte(CONFIG_REG_I2C_ADDR+0),HEX);
+  Serial.print("I2C_SPEED:0x");Serial.print(ReadByte(CONFIG_REG_I2C_SPEED+1),HEX);Serial.println(ReadByte(CONFIG_REG_I2C_SPEED+0),HEX);
+  Serial.print("LED_MODE:0x");Serial.println(ReadByte(CONFIG_REG_LED_MODE+0),HEX);
+  Serial.print("LED_FLASH_TIME:0x");Serial.print(ReadByte(CONFIG_REG_LED_FLASH_TIME+1),HEX);Serial.println(ReadByte(CONFIG_REG_LED_FLASH_TIME+0),HEX);
+  Serial.print("DATA_CLEAR_TIME:0x");Serial.print(ReadByte(CONFIG_REG_DATA_CLEAR_TIME+1),HEX);Serial.println(ReadByte(CONFIG_REG_DATA_CLEAR_TIME+0),HEX);
+  Serial.print("DATA_READ_TIME:0x");Serial.print(ReadByte(CONFIG_REG_DATA_READ_TIME+1),HEX);Serial.println(ReadByte(CONFIG_REG_DATA_READ_TIME+0),HEX);
+  Serial.println();Serial.println();Serial.println();
+  delay(3000);
+}
+
+/**************************************************************** 
+ * Function Name: test_SetDefault
+ * Description:  Use for test SetDefault function.
+ * Parameters: none
+ * Return: none
+****************************************************************/ 
+void MTB::test_SetDefault(void)
+{ 
+  Serial.println("Setting Default Value");
+ 
+  SetDefault();
+  Serial.println("Default Value are over here");
+  Serial.print("valid:0x");Serial.print(ReadByte(CONFIG_REG_VALID+3),HEX);Serial.print(ReadByte(CONFIG_REG_VALID+2),HEX);Serial.print(ReadByte(CONFIG_REG_VALID+1),HEX);Serial.println(ReadByte(CONFIG_REG_VALID+0),HEX);
+  Serial.print("I2C_ADDR:0x");Serial.println(ReadByte(CONFIG_REG_I2C_ADDR+0),HEX);
+  Serial.print("I2C_SPEED:0x");Serial.print(ReadByte(CONFIG_REG_I2C_SPEED+1),HEX);Serial.println(ReadByte(CONFIG_REG_I2C_SPEED+0),HEX);
+  Serial.print("LED_MODE:0x");Serial.println(ReadByte(CONFIG_REG_LED_MODE+0),HEX);
+  Serial.print("LED_FLASH_TIME:0x");Serial.print(ReadByte(CONFIG_REG_LED_FLASH_TIME+1),HEX);Serial.println(ReadByte(CONFIG_REG_LED_FLASH_TIME+0),HEX);
+  Serial.print("DATA_CLEAR_TIME:0x");Serial.print(ReadByte(CONFIG_REG_DATA_CLEAR_TIME+1),HEX);Serial.println(ReadByte(CONFIG_REG_DATA_CLEAR_TIME+0),HEX);
+  Serial.print("DATA_READ_TIME:0x");Serial.print(ReadByte(CONFIG_REG_DATA_READ_TIME+1),HEX);Serial.println(ReadByte(CONFIG_REG_DATA_READ_TIME+0),HEX);
+  Serial.println();Serial.println();Serial.println();
+  delay(3000);
 }
