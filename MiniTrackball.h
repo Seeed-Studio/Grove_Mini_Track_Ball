@@ -1,7 +1,7 @@
 #ifndef _MINITRACKBALL_H_
 #define _MINITRACKBALL_H_
 
-#include "arduino.h"
+#include "Arduino.h"
 
 /*---------------------------------------------------------------------------------------//
  * define the default data
@@ -59,7 +59,7 @@ enum LED_MODE
 
 
 
-class MTB
+class MiniTrackBall
 {
   public:
   

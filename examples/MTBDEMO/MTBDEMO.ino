@@ -13,7 +13,7 @@
 #include "MiniTrackball.h"
 #include "Wire.h"
 
-MTB MiniTrackball;
+MiniTrackBall miniTrackball;
 
 void setup() 
 { 
@@ -25,7 +25,7 @@ void loop()
 {
     uint8_t track_data[5];
     
-    MiniTrackball.GetTrackData(track_data);
+    miniTrackball.GetTrackData(track_data);
     
     Serial.println("+------------------------------------------------------+");
     Serial.print("MOTION_UP:    ");

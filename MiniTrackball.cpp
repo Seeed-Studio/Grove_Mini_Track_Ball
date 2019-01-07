@@ -35,7 +35,7 @@
 /*---------------------------------------------------------------------------------------//
  * Write one byte into register
  */
-void MTB::WriteByte(uint8_t Reg, uint8_t Value)
+void MiniTrackBall::WriteByte(uint8_t Reg, uint8_t Value)
 {
     Wire.beginTransmission(DeAddr); 
     Wire.write(WriteMode); 
@@ -47,7 +47,7 @@ void MTB::WriteByte(uint8_t Reg, uint8_t Value)
 /*---------------------------------------------------------------------------------------//
  * Write N byte into register
  */
-void MTB::WriteNByte(uint8_t Reg , uint8_t * Value , uint8_t len)
+void MiniTrackBall::WriteNByte(uint8_t Reg , uint8_t * Value , uint8_t len)
 {
     Wire.beginTransmission(DeAddr); 
     Wire.write(WriteMode); 
@@ -62,7 +62,7 @@ void MTB::WriteNByte(uint8_t Reg , uint8_t * Value , uint8_t len)
 /*---------------------------------------------------------------------------------------//
  * Write one word(4 bytes,32 bits) into register ,the register address must be continuous
  */
-void MTB::WriteOneWord(uint8_t Reg, uint32_t Value)
+void MiniTrackBall::WriteOneWord(uint8_t Reg, uint32_t Value)
 {
   uint8_t tmp[4]={0};
   tmp[0] = (Value>>0)&0XFF;
@@ -76,7 +76,7 @@ void MTB::WriteOneWord(uint8_t Reg, uint32_t Value)
 /*---------------------------------------------------------------------------------------//
  * Write half word(2 bytes,16 bits) into register ,the register address must be continuous
  */
-void MTB::WriteHalfWord(uint8_t Reg, uint16_t Value)
+void MiniTrackBall::WriteHalfWord(uint8_t Reg, uint16_t Value)
 {
   uint8_t tmp[2]={0};
   tmp[0] = (Value>>0)&0XFF;
@@ -87,7 +87,7 @@ void MTB::WriteHalfWord(uint8_t Reg, uint16_t Value)
 /*---------------------------------------------------------------------------------------//
  * Read one byte from register
  */
- uint8_t MTB::ReadByte(uint8_t Reg)
+ uint8_t MiniTrackBall::ReadByte(uint8_t Reg)
  {
     Wire.beginTransmission(DeAddr); 
     Wire.write(ReadMode); 
@@ -100,7 +100,7 @@ void MTB::WriteHalfWord(uint8_t Reg, uint16_t Value)
  /*---------------------------------------------------------------------------------------//
  * Read half word from register
  */
- uint16_t MTB::ReadHalfWord(uint8_t Reg)
+ uint16_t MiniTrackBall::ReadHalfWord(uint8_t Reg)
  {
    uint16_t tmp;
    tmp = ReadByte(Reg);
@@ -110,7 +110,7 @@ void MTB::WriteHalfWord(uint8_t Reg, uint16_t Value)
  /*---------------------------------------------------------------------------------------//
  * Read one word from register
  */
- uint32_t MTB::ReadOneWord(uint8_t Reg)
+ uint32_t MiniTrackBall::ReadOneWord(uint8_t Reg)
  {
    uint32_t tmp;
    tmp = ReadByte(Reg);
@@ -123,7 +123,7 @@ void MTB::WriteHalfWord(uint8_t Reg, uint16_t Value)
 /*---------------------------------------------------------------------------------------//
  * Set LED mode ,reference to the enum type LED_MODE
  */
-void MTB::SetLedMode(uint8_t LED_MODE)
+void MiniTrackBall::SetLedMode(uint8_t LED_MODE)
 {
   WriteByte(CONFIG_REG_LED_MODE,LED_MODE);
 }
@@ -131,7 +131,7 @@ void MTB::SetLedMode(uint8_t LED_MODE)
 /*---------------------------------------------------------------------------------------//
  * Set all config to default value
  */
-void MTB::SetDefault(void)
+void MiniTrackBall::SetDefault(void)
 { 
   unsigned char Zero[]={0,0,0,0};
   WriteNByte(CONFIG_REG_VALID , Zero , 4);
@@ -144,7 +144,7 @@ void MTB::SetDefault(void)
  * Parameters: array data[], the number of elements is greater than or equal to 5 which used to store data.
  * Return: none
 ****************************************************************/ 
-void MTB::GetTrackData(uint8_t data[])
+void MiniTrackBall::GetTrackData(uint8_t data[])
 {
     data[0] = ReadByte(MOTION_REG_UP);
     data[1] = ReadByte(MOTION_REG_DOWN);
@@ -159,7 +159,7 @@ void MTB::GetTrackData(uint8_t data[])
  * Parameters: none
  * Return: none
 ****************************************************************/ 
-void MTB::test_SetLedMode(void)
+void MiniTrackBall::test_SetLedMode(void)
 {
 	for(int i=0;i<LED_MODE_NUM;i++)
 	{
@@ -174,7 +174,7 @@ void MTB::test_SetLedMode(void)
  * Parameters: none
  * Return: none
 ****************************************************************/ 
-void MTB::test_WriteReg(void)
+void MiniTrackBall::test_WriteReg(void)
 { 
   unsigned char tmp[8]={0};
   tmp[0] = 0X4A;
@@ -221,7 +221,7 @@ void MTB::test_WriteReg(void)
  * Parameters: none
  * Return: none
 ****************************************************************/ 
-void MTB::test_SetDefault(void)
+void MiniTrackBall::test_SetDefault(void)
 { 
   Serial.println("Setting Default Value");
  
