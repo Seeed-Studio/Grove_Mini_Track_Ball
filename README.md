@@ -1,4 +1,4 @@
-# Grove_Mini_Track_Ball
+# Grove_Mini_Track_Ball  [![Build Status](https://travis-ci.com/Seeed-Studio/Grove_Mini_Track_Ball.svg?branch=master)](https://travis-ci.com/Seeed-Studio/Grove_Mini_Track_Ball)
 
 <img src=https://statics3.seeedstudio.com/images/product/101020091%203.jpg width=300><img src=https://statics3.seeedstudio.com/product/101020091%203_02.jpg width=300>
 
